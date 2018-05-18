@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<museoslist>
+	<titulo>
+		Canal XML de {{user.username}}
+	</titulo>
+    {% for seleccionado in seleccionados %}
+    	<museo>
+    		<nombre>{{seleccionado.museo_id.nombre}}</nombre>
+    		<descripcion>{{seleccionado.museo_id.descripcion}}</descripcion>
+    		<accesibilidad>{{seleccionado.museo_id.accesibilidad}}</accesibilidad>
+    		<enlace>{{seleccionado.museo_id.enlace}}</enlace>
+    		<localizacion>
+	    		<direccion>{{seleccionado.museo_id.direccion}}</direccion>
+	    		<barrio>{{seleccionado.museo_id.barrio}}</barrio>
+	    		<distrito>{{seleccionado.museo_id.distrito}}</distrito>
+    		</localizacion>
+    	</museo>
+    {% endfor %}
+</museoslist>

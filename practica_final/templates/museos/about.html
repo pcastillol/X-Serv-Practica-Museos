@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="gradient" style="width:750px; position:relative; right: 20%;">
+  <a name="fluidity"></a>
+  <h1>About</h1></br>
+      <ul>
+        <h2><strong>Autor: </strong></h2> Pablo Castillo Lopez</br>
+        <h2><strong>Grado: </strong></h2> Ingenieria en Tecnologias de la Telecomunicacion</br>
+        <h2><strong>Funcionalidad básica: </strong></h2>
+        <p> <u>Recurso "/"</u>: Pagina principal. Muestra una lista con los 5 museos con mas comentarios. Si no hay 5 museos comentados, se muestran solo los que lo esten. Tambien se muestra la lista de las paginas de todos los usuarios.</p></br>
+
+        <p><u>Recurso "/usuario"</u>: Muestra la pagina del usuario, en la que se muestran los museos seleccionados y la fecha de su seleccion.</p></br>
+
+        <p><u>Recurso "/museos"</u>: Muestra la lista de todos los museos, pudiendolos filtrar por distrito y por accesibilidad.</p></br>
+
+        <p><u>Recurso "/museos/id"</u>: Muestra la pagina del museo concreto con toda su informacion. Si el usuario esta logueado tendra la posibilidad de escribir un comentario.</p></br>
+
+        <p><u>Recurso "/usuario/xml"</u>: Muestra el canal XML de los museos seleccionados por el usuario que esta logueado.</p></br>
+
+        <p><u>Recurso "/about"</u>: Pagina con informacion de la autoria de la practica y explicacion de su funcionamiento.</p></br>
+
+    </ul>
+</div>
+
+{% endblock content %}

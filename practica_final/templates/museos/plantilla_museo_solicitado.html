@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="gradient" style="width:700px; position:relative; right: 20%;">
+  <a name="fluidity"></a>
+  <h1>{{museo.nombre|striptags|safe}}</h1>
+  <ul class = "indexlist">
+      <div class="5museos">
+          <item>
+            <div class="museo" style="width:750px;">
+              <h3><strong>Direccion:  </strong>{{museo.direccion|striptags|safe}}</h3>
+              <h3><strong>Barrio:  </strong>{{museo.barrio|striptags|safe}}</h3>
+              <h3><strong>Distrito:  </strong>{{museo.distrito|striptags|safe}}</h3>
+              <h3><strong>Accesibilidad:  </strong>{{museo.accesibilidad|striptags|safe}}</h3>
+              <h3><strong>Contacto:  </strong>{{museo.contacto|striptags|safe}}</h3>
+              <strong>Este museo ya lo has seleccionado, no puedes volverlo a hacer</strong>
+              <p>{{museo.descripcion|striptags|safe}}</p>
+            </div>
+
+            <div class="comentarios" style="width:750px;">
+            {% ifnotequal comentarios "" %}
+              <h2><strong>Comentarios del museo: </strong></h2>
+              <ul>
+              {% for comentario in comentarios %}
+                <li><p>{{comentario.texto|striptags|safe}}<br/></p></li>
+              {% endfor %}
+              {% if request.user.is_authenticated %}
+              </br>
+              <form action="/addcomentario/{{museo.id}}" method="POST">{% csrf_token %}
+                  <label for="comentario"><h3><strong>Escribe un comentario para este museo: </strong></h3></label>
+                   <input type="text" name="comentario" value="" id="comentario" style = "width:500px; height:75px;
+                    border-width:thick; border-style:solid; border-color:black"></br>
+                  <input type="submit" value="Enviar" style="background-color: #000000;
+                    border: 2px solid yellow;
+                    border-radius: 5px;
+                    box-shadow: 0px 0px 0px 1px rgba(255, 115, 100, 0.4) inset, 0px 1px 3px #333;
+                    color: white;
+                    font: bold 20px/1 "helvetica neue",helvetica,arial,sans-serif;
+                    padding: 12px 0px 14px;
+                    text-align: center;
+                    text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8);
+                    width: 150px;"/>
+              </form>
+               {% endif %}
+            </div>
+              </br>
+              </ul>
+            {%  endifnotequal %}
+            <blockquote class="go">
+              <a href="{{museo.enlace}}"><strong>Visita la web del museo</strong></a>
+            </blockquote>
+          </item>
+        </br><hr class="separator">
+    </div>
+  </ul>
+</div>
+
+{% endblock content %}
