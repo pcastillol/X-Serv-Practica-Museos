@@ -30,7 +30,10 @@ urlpatterns = [
     url(r'^filtermuseos$', 'museos.views.filterMuseos'),
     url(r'^addseleccionado/(.+)$', 'museos.views.addSeleccionado'),
     url(r'^addcomentario/(.+)$', 'museos.views.addComentario'),
+    url(r'^main/xml$', 'museos.views.mainXml'),
     url(r'^(.*)/xml$', 'museos.views.showUsuarioXML'),
     url(r'^about$', 'museos.views.showAbout'),
+    url(r'^rsschannel$', 'museos.views.rssChannel'),
+    url(r'^register$', 'museos.views.register'),
     url(r'^(.*)$', 'museos.views.pag_usuario'),
 ]

@@ -1,0 +1,150 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-AU">
+
+<head>
+
+
+  <title>MadridMuseosApp</title>
+
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+  <meta name="author" content="fullahead.org" />
+  <meta name="keywords" content="Open Web Design, OWD, Free Web Template, Lazy Days, Fullahead" />
+  <meta name="description" content="A free web template designed by Fullahead.org and hosted on OpenWebDesign.org" />
+  <meta name="robots" content="index, follow, noarchive" />
+  <meta name="googlebot" content="noarchive" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'museos/html.css'%}" media="screen, projection, tv " />
+  <link rel="stylesheet" type="text/css" href="{% static 'museos/layout.css'%}" media="screen, projection, tv" />
+  <link rel="stylesheet" type="text/css" href="{% static 'museos/print.css'%}" media="print" />
+  <link rel="shortcut icon" href="{% static 'museos/images/dino.ico'%}">
+
+</head>
+
+
+<body>
+
+<!-- CONTENT: Holds all site content except for the footer.  This is what causes the footer to stick to the bottom -->
+<div id="content">
+  <!-- HEADER: Holds title, subtitle and header images -->
+  <div id="header">
+
+    <div id="title">
+      <h1>Museos de Madrid</h1>
+      <div class="login">
+        {% if user.is_authenticated %}
+        <form action="/logout" method="post" style="position:relative; left:25%; bottom:75%;">{% csrf_token %}
+          <h1><label for="username" style="color: brown;">{{request.user.username}} </label></h1><br/>
+          <input type="submit" value="Salir" style="background-color: #000000;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            box-shadow: 0px 0px 0px 1px rgba(255, 115, 100, 0.4) inset, 0px 1px 3px #333;
+            color: white;
+            font: bold 20px/1 "helvetica neue",helvetica,arial,sans-serif;
+            padding: 12px 0px 14px;
+            text-align: center;
+            text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8);
+            width: 150px;"/>
+        </form>
+        {% else %}
+        <form action="/loggin" method="POST" style="position:relative; left:65%; bottom:20%;">{% csrf_token %}
+            <label for="username" style="color: white;">Usuario:</label>
+            <input type="text" name="username" value="" id="username" style="width:100px; height:20px;
+              border-width:thick; border-style:solid; border-color:black">
+            <label for ="password" style="color: white;">Contraseña:</label>
+            <input type="password" name="password" value="" id="password" style="width:100px; height:20px;
+              border-width:thick; border-style:solid; border-color:black">
+            <input type="submit" value="Entrar" style="background-color: #000000;
+              border: 1px solid yellow;
+              border-radius: 5px;
+              box-shadow: 0px 0px 0px 1px rgba(255, 115, 100, 0.4) inset, 0px 1px 3px #333;
+              color: white;
+              font: bold 20px/1 "helvetica neue",helvetica,arial,sans-serif;
+              padding: 12px 0px 14px;
+              text-align: center;
+              text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8);
+              width: 150px;"/>
+
+        </form>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- <img src="{% static 'museos/images/banner.jpg' %}" alt="banner" class="banner" />
+    <img src="{% static 'museos/images/banner.jpg' %}" alt="bannerleft" class="bannerleft" />
+    <img src="{% static 'museos/images/banner.jpg' %}" alt="bannerright" class="bannerright" /> -->
+    <img src="{% static 'museos/images/dama_elche.jpeg' %}" alt="JPEG Banner" style="width:620px;height:130px" class="banner" />
+
+  </div>
+
+
+
+  <!-- MAIN MENU: Top horizontal menu of the site.  Use class="here" to turn the current page tab on -->
+  <div id="mainMenu">
+    <ul class="floatRight">
+      <li><a href="/" title="Pagina principal" class="here">Inicio</a></li>
+      <li><a href="/museos" title="Todos los museos">Todos</a></li>
+      {% if request.user.is_authenticated %}
+      <li><a href="/mypage" title="Pagina del usuario">Pagina usuario</a></li>
+      {% else %}
+      <li><a href="/register" title="Registrarse">Regístrate</a></li>
+      {% endif %}
+      <li><a href="/about" title="Informacion de la pagina">About</a></li>
+    </ul>
+  </div>
+
+
+
+
+  <!-- PAGE CONTENT BEGINS: This is where you would define the columns (number, width and alignment) -->
+  <div id="page">
+
+
+    <!-- 25 percent width column, aligned to the left -->
+    <div class="width25 floatLeft leftColumn">
+
+      {% block left %}{% endblock %}
+
+    </div>
+
+    <!-- 75 percent width column, aligned to the right -->
+    <div class="width75 floatRight">
+
+
+      <!-- Gives the gradient block -->
+      <div class="gradient">
+
+        {% block content %}{% endblock %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- FOOTER: Site footer for links, copyright, etc. -->
+<div id="footer">
+
+  <div id="width">
+    <span class="floatLeft">
+      "Esta aplicación utiliza datos del portal de datos abiertos de la ciudad de Madrid"
+
+      <span class="floatRight">
+        <a href="https://datos.madrid.es/portal/site/egob/menuitem.ac61933d6ee3c31cae77ae7784f1a5a0/?vgnextoid=00149033f2201410VgnVCM100000171f5a0aRCRD&format=xml&file=0&filename=201132-0-museos&mgmtid=118f2fdbecc63410VgnVCM1000000b205a0aRCRD&preview=full" title="Datos XML">Datos XML</a> <span class="grey">|</span>
+        <a href="https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=118f2fdbecc63410VgnVCM1000000b205a0aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default" title="Descripcion de los datos">Descripción</a> <span class="grey">|</span>
+
+      </span>
+  </div>
+
+</div>
+
+</body>
+
+</html>

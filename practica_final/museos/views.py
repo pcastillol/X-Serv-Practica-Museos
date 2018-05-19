@@ -291,8 +291,8 @@ def addSeleccionado(request, id):
             if len(comentarios) == 0:
                 comentarios = []
 
-            try:    #Vemos si el museo ya esta seleccionado
-                Seleccionado.objects.get(museo_id=museo)
+            try:    #Vemos si el museo ya esta seleccionado por ese usuario
+                Seleccionado.objects.get(user=user, museo_id=museo)
 
                 template = get_template('museos/plantilla_museo_solicitado.html')
                 context = {'museo': museo,
@@ -402,3 +402,80 @@ def showAbout(request):
 ######################################
 ############ OPTATIVAS ###############
 ######################################
+
+###Canal RSS con los comentarios###
+@csrf_exempt
+def rssChannel(request):
+    comentarios = Comentario.objects.all()
+
+    template = get_template('museos/plantilla_rss.html')
+    context = {'comentarios': comentarios}
+
+    return HttpResponse(template.render(context,request))
+
+###Registro de usuarios###
+@csrf_exempt
+def register(request):
+    if request.method == "GET":
+        template = get_template('museos/plantilla_registro.html')
+        context = {}
+        return HttpResponse(template.render(context,request))
+    elif request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password'] #contraseña en crudo
+        titulo = "Pagina de " + username
+
+        user = User(username = username, password = password)   #creamos objeto con contraseña en crudo
+        user.set_password(user.password)    #cifrado de la contraseña
+        user.is_staff = True
+        user.save()
+
+        user = User.objects.get(username=username)  #User object que acabo de instancair
+        css = CSS(user = user, titulo = titulo)
+        css.save()
+
+        return HttpResponseRedirect("/")
+    else:
+        return HttpResponseNotFound("Not Found")
+
+
+###Canal XML Pagina Principal###
+@csrf_exempt
+def mainXml(request):
+    if request.method == "GET":
+        topMuseos = []  #[(id_museo, numComentarios)]
+        users = []  #[(usuario, titulo_pag)]
+
+        museos = Museo.objects.all()
+        topMuseos = sortByComments(museos)  #lista ordenada
+        counter = 5 #Quiero que me muestre 5 museos
+        lista_museos_aux = []   #lista de 5 o menos museos que se mostrara
+
+        for tupla in topMuseos:
+            if (counter > 0) and (tupla[1] > 0): #si contador mayor que 0 y el museo tiene comentarios
+                counter = counter - 1
+                try:
+                    museo = Museo.objects.get(id=tupla[0]) #cogemos el museo con ese id
+
+                    usuarios = User.objects.all()
+                    for usuario in usuarios:
+                        try:
+                            css = CSS.objects.get(user=usuario.username)
+                            if len(users) < len(usuarios):    #si hay menos usuarios en la lista que en la BD
+                                users.append((css.user, css.titulo)) #añadimos a la lista la tupla con el nombre y el titulo del usuario
+                        except CSS.DoesNotExist:
+                            if len(users) < len(usuarios):
+                                users.append((usuario.username,('Pagina de ' + usuario.username)))
+
+                    lista_museos_aux.append(museo)  #añadimos por el final para que queden ordenados por nComments
+
+                except ObjectDoesNotExist:
+                    print ("Museo no disponible")
+
+        template = get_template('museos/plantilla_mainxml.xml')
+        context = {'museos': lista_museos_aux,
+                    'usuarios': users}
+        return HttpResponse(template.render(context,request), content_type = 'text/xml')
+
+    else:
+        return HttpResponseNotFound("Not Found")

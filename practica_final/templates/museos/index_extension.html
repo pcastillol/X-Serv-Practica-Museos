@@ -1,0 +1,50 @@
+
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="gradient">
+  <a name="fluidity"></a>
+  <h1>Museos con mas comentarios</h1>
+  <ul class = "indexlist">
+    {% for museo in museos %}
+      <div class="5museos">
+        <li>
+          <item>
+            <div class="museo">
+              <a href="{{museo.enlace}}"><h2>{{museo.nombre|striptags|safe}}</h2></a>
+              <p><strong>Direccion:  </strong>{{museo.direccion|striptags|safe}}</p>
+            </div>
+            <blockquote class="go">
+              <a href="/museos/{{museo.id}}"><strong> Mas informacion</strong></a>
+            </blockquote>
+          </item>
+        </li></br><hr class="separator">
+    </div>
+    {% empty %}
+      <p> No hay museos comentados </p>
+    {% endfor %}
+  </ul>
+    <a href="/rsschannel"><h2><strong> Canal RSS </strong></h2></a>
+    <a href="/main/xml"><h2><strong> Canal XML de la Pagina Principal </strong></h2></a>
+</div>
+
+{% endblock content %}
+
+
+{% block left %}
+
+<div class="width100 floatLeft leftColumn">
+  <h2>PAGINAS PERSONALES</h2>
+  <ul class="sideMenu">
+    <li class="here">
+      {% for usuario,titulo in usuarios %}
+      <ul>
+        <li><a href="/{{usuario}}" title="Pagina usuario">{{titulo|striptags|safe}}</a></li>
+      </ul>
+      {% endfor %}
+    </li>
+  </ul>
+</div>
+
+{% endblock left %}

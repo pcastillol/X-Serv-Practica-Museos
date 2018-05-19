@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<museoslist>
+	<titulo>
+		Canal XML de la pagina principal
+	</titulo>
+	{% for museo in museos %}
+	<museo>
+		<nombre>{{museo.nombre}}</nombre>
+		<direccion>{{museo.direccion}}</direccion>
+		<web>{{museo.enlace}}</web>
+		<informacion>/museos/{{museo.id}}</informacion>
+	</museo>
+	{% endfor %}
+	<paginasusuario>
+		{% for usuario, titulo in usuarios %}
+		<usuario>
+			<nombre>{{usuario}}</nombre>
+			<titulo>{{titulo}}</titulo>
+		</usuario>
+		{% endfor %}
+	</paginasusuario>
+</museoslist>

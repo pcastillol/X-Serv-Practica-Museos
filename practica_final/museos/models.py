@@ -28,5 +28,5 @@ class Seleccionado(models.Model):
 class CSS(models.Model):
 	user = models.CharField(max_length=128, blank=True)    #blank=True para permitir valor vacio
 	titulo = models.CharField(max_length=128, blank=True)
-	color = models.CharField(max_length=64, blank=True)
-	size = models.IntegerField(blank=True)
+	color = models.CharField(max_length=64, blank=True, null=True)
+	size = models.IntegerField(blank=True, null=True)
