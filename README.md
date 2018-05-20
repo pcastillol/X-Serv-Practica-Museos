@@ -9,7 +9,7 @@ Repositorio de inicio de la práctica final - Curso 2017/2018
 
 * __Resumen de las peculiaridades de parte obligatoria:__ 
 	* En la barra de opciones, aparecerá un enlace para acceder a la página del usuario cuando hay un usuario logueado. En caso contrario, será un enlace para registrarse.
-	* El botón para filtar por accesibilidad se encuentra en el recurso "/museos" junto con el de filtrar por distrito.
+	* El botón para filtrar por accesibilidad se encuentra en el recurso "/museos" junto con el de filtrar por distrito.
 
 * __Lista de funcionalidades opcionales:__
 	* Favicon del sitio.
