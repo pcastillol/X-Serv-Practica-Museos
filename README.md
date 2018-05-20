@@ -14,7 +14,7 @@ Repositorio de inicio de la práctica final - Curso 2017/2018
 * __Lista de funcionalidades opcionales:__
 	* Favicon del sitio.
 	* Canal RSS con los comentarios del sitio. Podremos acceder a él mediante un enlace en la página principal ("Canal RSS").
-  * Canal XML para los contenidos de la página principal. Podremos acceder a él mediante un enlace en la página principal ("Canal XML de la pagina principal").
+  	* Canal XML para los contenidos de la página principal. Podremos acceder a él mediante un enlace en la página principal ("Canal XML de la pagina principal").
 	* Funcionalidad de registro de usuarios: Permite dar de alta nuevos usuarios sin necesidad de acudir a la interfaz de administración de Django.
 
 * URL de vídeos:
